@@ -15,7 +15,7 @@ fprintf('Subject Info End\n');
 
 fprintf('Material Load Start\n');
 % start up all of the materials needed for the program
-[sampling, attimage, habstim1, habstim2, stim1_1, stim1_2, stim2_1, stim2_2,...
+[sampling, attimage, attsound, habstim1, habstim2, stim1_1, stim1_2, stim2_1, stim2_2,...
     blank, vid, center_vec,centerlocation,leftlocation, rightlocation, window,triallabels,redSquare] = loadMaterials(condition);
 fprintf('Material Load End\n');
 
@@ -46,7 +46,7 @@ while ~abort % continue until the end of the trial or until an abort key is pres
 
         fprintf('first hab block\n');
         %Attention grabber and calebration
-        [abort,attimeHab1,centerLookHab1] = attentionAndCalebration(true,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim1);
+        [abort,attimeHab1,centerLookHab1] = attentionAndCalebration(true,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim1);
         if abort == true; break; end
         [abort,fixationReportHab1] = displayTwoImages('hab',habstim1,habstim1, blank, triallabels{1}, place, vid, window,centerlocation,leftlocation,rightlocation,sampling,attimage,outputfile,outputfilesummary);
         if abort == true; break; end
@@ -65,7 +65,7 @@ while ~abort % continue until the end of the trial or until an abort key is pres
         fprintf('test 1 block\n');
 
         % Attention Grabber
-        [abort,att2time,centerLookTest1_1] = attentionAndCalebration(false,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim1);
+        [abort,att2time,centerLookTest1_1] = attentionAndCalebration(false,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim1);
         if abort == true; break; end
         % Present novel and familiar using attention grabber as necessary;
         % end when stim presented for 20 sec
@@ -77,7 +77,7 @@ while ~abort % continue until the end of the trial or until an abort key is pres
     elseif place == 3
         % Attention Grabber
         fprintf('test 2 block\n');
-        [abort,att3time,centerLookTest1_2] = attentionAndCalebration(false,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim1);
+        [abort,att3time,centerLookTest1_2] = attentionAndCalebration(false,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim1);
         if abort == true; break; end
         % Present novel and familiar flipped using attention grabber as
         % necessary; end when stim presented for 20 sec
@@ -90,7 +90,7 @@ while ~abort % continue until the end of the trial or until an abort key is pres
     elseif place == 4 % habituation block
         %Attention grabber and calebration
         fprintf('second hab block\n');
-        [abort,att4time,centerLookHab2] = attentionAndCalebration(true,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim2);
+        [abort,att4time,centerLookHab2] = attentionAndCalebration(true,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim2);
         if abort == true; break; end
         [abort,hab2time] = displayTwoImages('hab',habstim2,habstim2,blank, triallabels{4}, place, vid, window,centerlocation,leftlocation,rightlocation,sampling,attimage,outputfile,outputfilesummary);
         if abort == true; break; end
@@ -105,7 +105,7 @@ while ~abort % continue until the end of the trial or until an abort key is pres
     elseif place == 5
         % Attention Grabber
         fprintf('test 1 block\n');
-        [abort,att5time,centerLookTest1_1] = attentionAndCalebration(false,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim2);
+        [abort,att5time,centerLookTest1_1] = attentionAndCalebration(false,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim2);
         if abort == true; break; end
         % Present novel and familiar using attention grabber as necessary;
         % end when stim presented for 20 sec
@@ -117,7 +117,7 @@ while ~abort % continue until the end of the trial or until an abort key is pres
     elseif place == 6
         % Attention Grabber
         fprintf('test 2 block\n');
-        [abort,att6time,centerLookTest1_2] = attentionAndCalebration(false,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim2);
+        [abort,att6time,centerLookTest1_2] = attentionAndCalebration(false,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,0,outputfile,outputfilesummary,habstim2);
         if abort == true; break; end
         % Present novel and familiar flipped using attention grabber as
         % necessary; end when stim presented for 20 sec

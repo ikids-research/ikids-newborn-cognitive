@@ -1,4 +1,4 @@
-function [abort,atttime,centerLook] = attentionAndCalebration(calebrate,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,totaltime,outputfile,outputfilesummary,calebrationstim)
+function [abort,atttime,centerLook] = attentionAndCalebration(calebrate,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,totaltime,outputfile,outputfilesummary,calebrationstim)
 
 global redSquare
 global leftlocationred
@@ -13,7 +13,7 @@ global imagenums
 %attention grabber to use - go through each in order then increment by 1
 if imagenums == 0
     imagenums = 1;
-elseif imagenums >= 8
+elseif imagenums >= 9
     imagenums = 1;
 else
     imagenums = imagenums +1;
@@ -23,9 +23,10 @@ end
 % choose three random images left, right, center
 abort = 0;
 centerimage = attimage{imagenums};
-
-[look,lookFs] = audioread('sounds/look.wav');
-[baby,babyFs] = audioread('sounds/baby.wav');
+currentsound = attsound{imagenums};
+%[look,lookFs] = audioread('sounds/look.wav');
+attsound = currentsound{1};
+attsoundFs = currentsound{2};
 
 beep=MakeBeep(500,0.25);
 endbeep = MakeBeep(1000,0.25);
@@ -98,10 +99,10 @@ while 1
         end
         
         if soundnum ==0
-            sound(baby,babyFs);
+            sound(attsound,attsoundFs);
             soundnum = 1;
         else
-            sound(look,lookFs);
+            %sound(look,lookFs);
             soundnum = 0;
         end
     end
