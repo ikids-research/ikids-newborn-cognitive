@@ -1,0 +1,18 @@
+1.0.3 - 2014.07.14 [PDL]
+- During data pre-allocation, starting time of each trial was performed only once,
+		so all trials have same time-stamp. Fixed with NaN pre-allocation and starting
+		time is set at the beginning of each trial.
+
+1.0.2 - 2014.06.11 [PDL]
+- "bufferizeSamples" sub-function moved in the main function as a nested function.
+		[MainLoop execution timing reduced more than 0.5 ms between samples acquisition
+		 compared to sub-function and its own script.]
+
+1.0.1 - 2013.12.17 [PDL]
+- Experimenter display update moved in "bufferizeSamples" to have less redundant commands.
+- Some re-wording.
+- Added more comments.
+
+1.0.0 - 2013.12.01 [PDL]
+- Released stable version for calibration on CRT monitor using PTB.
+- Added KbCheck for interrupting script execution.
