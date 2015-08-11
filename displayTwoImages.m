@@ -43,7 +43,14 @@ Screen('PutImage',window,rightstim,rightlocation);
 Screen('PutImage',window,[0,0,0],centerlocation);  % place a black square in the middle to hide the center square which might attract some babies attention
 Screen('flip',window);
 
+gPauseState = {0,0,0};
 while 1 % start a loop
+    [isGlobalPaused, gPauseState, ~] = getGlobalPauseState(gPauseState);
+    while isGlobalPaused
+        [isGlobalPaused, gPauseState, timeoutRemaining] = getGlobalPauseState(gPauseState);
+        fprintf('Global pause in effect. Press Space Bar to Release. Timeout in %f seconds.\n', timeoutRemaining);
+    end
+    
     t1=t2; % start of experiment
     WaitSecs(sampling);% use to set the sampling rate, 60 Hz for here
     t2=GetSecs;

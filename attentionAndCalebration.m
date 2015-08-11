@@ -63,7 +63,13 @@ imageflip = 2;
 flipNum = 0;
 soundnum = 0;
 
-while 1
+gPauseState = {0,0,0};
+while 1 % start a loop
+    [isGlobalPaused, gPauseState, ~] = getGlobalPauseState(gPauseState);
+    while isGlobalPaused
+        [isGlobalPaused, gPauseState, timeoutRemaining] = getGlobalPauseState(gPauseState);
+        fprintf('Global pause in effect. Press Space Bar to Release. Timeout in %f seconds.\n', timeoutRemaining);
+    end
     flipNum = flipNum + 1;
     t1=t2;
     WaitSecs(sampling);
@@ -133,7 +139,14 @@ if calebrate == true
     Screen('PutImage',window,[0,0,0],centerlocation);  % place a black square in the middle to hide the center square which might attract some babies attention
     Screen('flip',window);
     
-    while 1
+    gPauseState = {0,0,0};
+    while 1 % start a loop
+        [isGlobalPaused, gPauseState] = getGlobalPauseState(gPauseState);
+        [isGlobalPaused, gPauseState, ~] = getGlobalPauseState(gPauseState);
+        while isGlobalPaused
+            [isGlobalPaused, gPauseState, timeoutRemaining] = getGlobalPauseState(gPauseState);
+            fprintf('Global pause in effect. Press Space Bar to Release. Timeout in %f seconds.\n', timeoutRemaining);
+        end
         flipNum = flipNum + 1;
         t1=t2;
         WaitSecs(sampling);
@@ -199,7 +212,13 @@ if calebrate == true
     % display right stim
     Snd('Play',beep); % play beep sound.
     
-    while 1
+    gPauseState = {0,0,0};
+    while 1 % start a loop
+        [isGlobalPaused, gPauseState, ~] = getGlobalPauseState(gPauseState);
+        while isGlobalPaused
+            [isGlobalPaused, gPauseState, timeoutRemaining] = getGlobalPauseState(gPauseState);
+            fprintf('Global pause in effect. Press Space Bar to Release. Timeout in %f seconds.\n', timeoutRemaining);
+        end
         flipNum = flipNum + 1;
         t1=t2;
         WaitSecs(sampling);
