@@ -1,4 +1,4 @@
-function [abort,atttime,centerLook] = attentionAndCalebration(calebrate,vid,attimage,attsound,window,centerlocation,leftlocation,rightlocation,blank,sampling,totaltime,outputfile,outputfilesummary,calebrationstim)
+function [abort,atttime,centerLook] = attentionAndCalebration(calebrate,vid,attimage,window,centerlocation,leftlocation,rightlocation,blank,sampling,totaltime,outputfile,outputfilesummary,calebrationstim)
 
 global redSquare
 global leftlocationred
@@ -23,10 +23,8 @@ end
 % choose three random images left, right, center
 abort = 0;
 centerimage = attimage{imagenums};
-currentsound = attsound{imagenums};
 %[look,lookFs] = audioread('sounds/look.wav');
-attsound = currentsound{1};
-attsoundFs = currentsound{2};
+[attsound_ref, attsound_fs] = audioread(centerimage{3});
 
 beep=MakeBeep(500,0.25);
 endbeep = MakeBeep(1000,0.25);
@@ -99,7 +97,7 @@ while 1
         end
         
         if soundnum ==0
-            sound(attsound,attsoundFs);
+            sound(attsound_ref,attsound_fs);
             soundnum = 1;
         else
             %sound(look,lookFs);

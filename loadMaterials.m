@@ -1,4 +1,4 @@
-function [sampling, attimage, attsound, habstim1, habstim2, stim1_1, stim1_2, stim2_1, stim2_2, blank, vid, center_vec,centerlocation,leftlocation, rightlocation, window,triallabels,redSquare] = loadMaterials(condition)
+function [sampling, attimage, habstim1, habstim2, stim1_1, stim1_2, stim2_1, stim2_2, blank, vid, center_vec,centerlocation,leftlocation, rightlocation, window,triallabels,redSquare] = loadMaterials(condition)
 % This function loads all images and prepares the windows for the trials.
 
 % uncomment this when eyetracking is up and running
@@ -84,22 +84,28 @@ attimage7_2 = imread('images/simpleAttImages/att_image7_2.png');
 attimage8_2 = imread('images/simpleAttImages/att_image8_2.png');
 attimage9_2 = imread('images/simpleAttImages/att_image9_2.png');
 
-attimage = {{attimage1_1, attimage1_2}, {attimage2_1, attimage2_2}, {attimage3_1, attimage3_2}, {attimage4_1, attimage4_2}, {attimage5_1, attimage5_2}, {attimage6_1, attimage6_2}, {attimage7_1, attimage7_2}, {attimage8_1, attimage8_2}, {attimage9_1, attimage9_2}};
+% load attention grabbing sound filenames
+attsound1_ref = 'sounds/1_Cuckoo.wav';
+attsound2_ref = 'sounds/2_HeyCutie.wav';
+attsound3_ref = 'sounds/3_SweetiePie.wav';
+attsound4_ref = 'sounds/4_UpAndDown.wav';
+attsound5_ref = 'sounds/5_PeekAboo.wav';
+attsound6_ref = 'sounds/6_LookKiddo.wav';
+attsound7_ref = 'sounds/7_KittyCat.wav';
+attsound8_ref = 'sounds/8_TickTock.wav';
+attsound9_ref = 'sounds/9_BabyLook.wav';
 
 fprintf('Load Attention Sounds\n');
-
-% load attention grabbing images
-[attsound1_ref, attsound1_fs] = audioread('images/1_Cuckoo.wav');
-[attsound2_ref, attsound2_fs] = audioread('images/2_HeyCutie.wav');
-[attsound3_ref, attsound3_fs] = audioread('images/3_SweetiePie.wav');
-[attsound4_ref, attsound4_fs] = audioread('images/4_UpAndDown.wav');
-[attsound5_ref, attsound5_fs] = audioread('images/5_PeekAboo.wav');
-[attsound6_ref, attsound6_fs] = audioread('images/6_LookKiddo.wav');
-[attsound7_ref, attsound7_fs] = audioread('images/7_KittyCat.wav');
-[attsound8_ref, attsound8_fs] = audioread('images/8_TickTock.wav');
-[attsound9_ref, attsound9_fs] = audioread('images/9_BabyLook.wav');
- 
-attsound = {{attsound1_ref,attsound1_fs},{attsound2_ref,attsound2_fs},{attsound3_ref,attsound3_fs},{attsound4_ref,attsound4_fs},{attsound5_ref,attsound5_fs},{attsound6_ref,attsound6_fs},{attsound7_ref,attsound7_fs},{attsound8_ref,attsound8_fs},{attsound9_ref,attsound9_fs}};
+        
+attimage = {{attimage1_1, attimage1_2, attsound1_ref}, ...
+            {attimage2_1, attimage2_2, attsound2_ref}, ...
+            {attimage3_1, attimage3_2, attsound3_ref}, ...
+            {attimage4_1, attimage4_2, attsound4_ref}, ...
+            {attimage5_1, attimage5_2, attsound5_ref}, ...
+            {attimage6_1, attimage6_2, attsound6_ref}, ...
+            {attimage7_1, attimage7_2, attsound7_ref}, ...
+            {attimage8_1, attimage8_2, attsound8_ref}, ...
+            {attimage9_1, attimage9_2, attsound9_ref}};
 
 fprintf('Load Experimental Images\n');
 

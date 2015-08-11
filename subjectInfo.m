@@ -45,8 +45,8 @@ if strcmp(recovery, 'n')
     experimenter_baby = input('Researcher holding baby: \n','s');
     experimenter_computer = input('Researcher running computer: \n', 's');
     % 7) Condition
-    if exist(['conditionFile',sex,'.txt'])
-        conditionNameFile = ['conditionFile',sex,'.txt'];
+    if exist(['condition files/conditionFile',sex,'.txt'])
+        conditionNameFile = ['condition files/conditionFile',sex,'.txt'];
         conditionFile = fopen(conditionNameFile, 'r');
         line = fgetl(conditionFile);
         splitline = strsplit(line,',');
@@ -81,7 +81,7 @@ if strcmp(recovery, 'n')
                 end
             end
         end
-        conditionNameFile = ['conditionFile',sex,'.txt'];
+        conditionNameFile = ['condition files/conditionFile',sex,'.txt'];
         conditionFile = fopen(conditionNameFile, 'w');
         fprintf(conditionFile, ['',num2str(condition),'\n']);
     else
@@ -103,7 +103,7 @@ if strcmp(recovery, 'n')
                 break;
             end
         end
-        conditionNameFile = ['conditionFile',sex,'.txt'];
+        conditionNameFile = ['condition files/conditionFile',sex,'.txt'];
         conditionFile = fopen(conditionNameFile, 'w');
         fprintf(conditionFile, ['',num2str(condition),'\n']);
     end
@@ -232,7 +232,7 @@ end
 % append subject master list or create if needed
 formatString = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n'; % this is for data output
 
-dataFileName = ['SubjectInformation.txt'];
+dataFileName = ['data/SubjectInformation.txt'];
 if exist(dataFileName, 'file') == 0
     dataFile = fopen(dataFileName, 'a');
     fprintf(dataFile, 'Participant ID ,Age ,Sex ,Date of Test ,Session # , Birthdate ,Birthtime ,Place ,Experimenter_Baby ,Experimenter_Computer ,Condition\n');
