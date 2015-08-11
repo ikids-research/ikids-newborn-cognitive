@@ -1,4 +1,4 @@
-function [subject, birthdate, birthtime, sex, age, experimentdate, experimenter_baby, experimenter_computer, place, session, condition, outputfile, outputfilesummary] = subjectInfo()
+function [subject, birthdate, birthtime, sex, age, experimentdate, experimenter_baby, experimenter_computer, place, session, condition, outputfile, outputfilesummary] = getSubjectInfo()
 % This function asks the user for the basic info on the subject and if necessary loads previous data to restore a session
 % Ask for
 %     1) Participant ID

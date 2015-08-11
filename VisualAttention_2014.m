@@ -1,23 +1,23 @@
-% Newborn Visual Attention task 2014
-% Last updated 7-25-2014 by Whitney Street
+% Newborn Visual Attention Task 2015
+% Last updated 8-11-2015 by Kevin Horecka
 
-% Initialize everything
+% Clear previous state information to create clean slate
 clear all; clc; close all;
 
-
-
+% Skip video synchronization test (see http://docs.psychtoolbox.org/Screen
+% for more details)
 Screen('Preferences','SkipSyncTests',1);
 
-fprintf('\n\n\nSubject Info Start\n');
+fprintf('Getting subject information... ');
 % Get Start Up Info or recover a subject's info
-[subject,birthday,birthtime,sex,age,experimentdate,experimenter_baby,experimenter_computer,place,session,condition,outputfile,outputfilesummary] = subjectInfo();
-fprintf('Subject Info End\n');
+subjectInfoStructure = subjectInfo();
+fprintf('Done.\n');
 
-fprintf('Material Load Start\n');
+fprintf('Loading Materials... ');
 % start up all of the materials needed for the program
 [sampling, attimage, habstim1, habstim2, stim1_1, stim1_2, stim2_1, stim2_2,...
     blank, vid, center_vec,centerlocation,leftlocation, rightlocation, window,triallabels,redSquare] = loadMaterials(condition);
-fprintf('Material Load End\n');
+fprintf('Done.\n');
 
 global redSquare
 
