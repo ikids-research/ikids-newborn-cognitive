@@ -1,0 +1,2 @@
+output = getSubjectInfoUI();
+disp(output);

@@ -1,35 +1,35 @@
-function varargout = getSubjectInfoGUI(varargin)
-% GETSUBJECTINFOGUI MATLAB code for getSubjectInfoGUI.fig
-%      GETSUBJECTINFOGUI, by itself, creates a new GETSUBJECTINFOGUI or raises the existing
+function varargout = getSubjectInfoUI(varargin)
+% GETSUBJECTINFOUI MATLAB code for getSubjectInfoUI.fig
+%      GETSUBJECTINFOUI, by itself, creates a new GETSUBJECTINFOUI or raises the existing
 %      singleton*.
 %
-%      H = GETSUBJECTINFOGUI returns the handle to a new GETSUBJECTINFOGUI or the handle to
+%      H = GETSUBJECTINFOUI returns the handle to a new GETSUBJECTINFOUI or the handle to
 %      the existing singleton*.
 %
-%      GETSUBJECTINFOGUI('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in GETSUBJECTINFOGUI.M with the given input arguments.
+%      GETSUBJECTINFOUI('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in GETSUBJECTINFOUI.M with the given input arguments.
 %
-%      GETSUBJECTINFOGUI('Property','Value',...) creates a new GETSUBJECTINFOGUI or raises the
+%      GETSUBJECTINFOUI('Property','Value',...) creates a new GETSUBJECTINFOUI or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before getSubjectInfoGUI_OpeningFcn gets called.  An
+%      applied to the GUI before getSubjectInfoUI_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to getSubjectInfoGUI_OpeningFcn via varargin.
+%      stop.  All inputs are passed to getSubjectInfoUI_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help getSubjectInfoGUI
+% Edit the above text to modify the response to help getSubjectInfoUI
 
-% Last Modified by GUIDE v2.5 11-Aug-2015 16:39:11
+% Last Modified by GUIDE v2.5 12-Aug-2015 19:08:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @getSubjectInfoGUI_OpeningFcn, ...
-                   'gui_OutputFcn',  @getSubjectInfoGUI_OutputFcn, ...
+                   'gui_OpeningFcn', @getSubjectInfoUI_OpeningFcn, ...
+                   'gui_OutputFcn',  @getSubjectInfoUI_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,41 +44,66 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before getSubjectInfoGUI is made visible.
-function getSubjectInfoGUI_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before getSubjectInfoUI is made visible.
+function getSubjectInfoUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to getSubjectInfoGUI (see VARARGIN)
+% varargin   command line arguments to getSubjectInfoUI (see VARARGIN)
+currentDateTimeVector = datevec(now);
+currentDateStr = strcat(num2str(currentDateTimeVector(2)),'/', ...
+                        num2str(currentDateTimeVector(3)),'/', ...
+                        num2str(currentDateTimeVector(1)));
+set(handles.text10, 'String', currentDateStr);
+set(handles.popupmenu4, 'Value', mod(currentDateTimeVector(4),12));
+set(handles.popupmenu5, 'Value', currentDateTimeVector(5)+1);
+set(handles.popupmenu6, 'Value', floor(currentDateTimeVector(4)/12)+1);
 
-% Choose default command line output for getSubjectInfoGUI
+% Choose default command line output for getSubjectInfoUI
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes getSubjectInfoGUI wait for user response (see UIRESUME)
+% UIWAIT makes getSubjectInfoUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = getSubjectInfoGUI_OutputFcn(hObject, eventdata, handles) 
+function varargout = getSubjectInfoUI_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+uiwait(handles.figure1);
 % Get default command line output from handles structure
-varargout{1} = handles.output;
-
+out_data = [];
+if ishandle(handles.figure1)
+    out_data{1} = get(handles.edit1, 'String');
+    out_data{2} = get(handles.edit2, 'String');
+    out_data{3} = get(handles.edit3, 'String');
+    out_data{4} = get(handles.text9, 'String');
+    out_data{5} = get(handles.text10, 'String');
+    out_data{6} = get(handles.popupmenu1, 'Value');
+    out_data{7} = get(handles.popupmenu2, 'Value');
+    out_data{8} = get(handles.popupmenu3, 'Value');
+    out_data{9} = get(handles.popupmenu4, 'Value');
+    out_data{10} = get(handles.popupmenu5, 'Value');
+    out_data{11} = get(handles.popupmenu6, 'Value');
+    out_data{12} = get(handles.popupmenu7, 'Value');
+    out_data{13} = get(handles.popupmenu8, 'Value');
+    close(handles.figure1);
+end
+varargout{1} = out_data;
+    
 
 % --- Executes on button press in pushbutton1.
 function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+uiresume;
 
 
 function edit1_Callback(hObject, eventdata, handles)
@@ -88,7 +113,6 @@ function edit1_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit1 as text
 %        str2double(get(hObject,'String')) returns contents of edit1 as a double
-
 
 % --- Executes during object creation, after setting all properties.
 function edit1_CreateFcn(hObject, eventdata, handles)
@@ -338,10 +362,49 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+calendarHandle = uicalendar('Weekend', [1 0 0 0 0 0 1], ...  
+                            'SelectionType', 1, ...  
+                            'DestinationUI', handles.text9, ...
+                            'OutputDateFormat', 'mm/dd/yy');
+uiwait(calendarHandle);
+calendarValue = get(handles.text9, 'String');
+if isempty(calendarValue)
+    set(handles.text9, 'String', '01/01/00');
+end
+
+% --- Executes on button press in pushbutton3.
+function pushbutton3_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+calendarHandle = uicalendar('Weekend', [1 0 0 0 0 0 1], ...  
+                            'SelectionType', 1, ...  
+                            'DestinationUI', handles.text10, ...
+                            'OutputDateFormat', 'mm/dd/yy');
+uiwait(calendarHandle);
+calendarValue = get(handles.text10, 'String');
+if isempty(calendarValue)
+    currentDateTimeVector = datevec(now);
+    currentDateStr = strcat(num2str(currentDateTimeVector(2)),'/', ...
+                            num2str(currentDateTimeVector(3)),'/', ...
+                            num2str(currentDateTimeVector(1)));
+    set(handles.text10, 'String', currentDateStr);
+end
+
+% --- Executes on key press with focus on edit1 and none of its controls.
+function edit1_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to edit1 (see GCBO)
+% eventdata  structure with the following fields (see UICONTROL)
+%	Key: name of the key that was pressed, in lower case
+%	Character: character interpretation of the key(s) that was pressed
+%	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
+% handles    structure with handles and user data (see GUIDATA)
+% disp('test'); Example EDIT callback
 
 
-% --- Executes on button press in pushbutton4.
-function pushbutton4_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton4 (see GCBO)
+% --- If Enable == 'on', executes on mouse press in 5 pixel border.
+% --- Otherwise, executes on mouse press in 5 pixel border or over edit1.
+function edit1_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to edit1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
