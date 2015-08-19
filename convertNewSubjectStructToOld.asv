@@ -1,0 +1,57 @@
+function [subject, birthdate, birthtime, sex, age, experimentdate, ...
+          experimenter_baby, experimenter_computer, place, session, ...
+          condition, outputfile, outputfilesummary] = ...
+          getSubjectInfo(newStruct)
+subject = newStruct{1};
+birthdate = newStruct{4};
+currentdate = newStruct{5};
+birthhour_num = newStruct{6};
+birthmin_num = newStruct{7};
+birthampm_num = newStruct{8};
+currentampm_num = newStruct{11};
+birthampm = '??';
+if birthampm_num == 1
+    birthampm = 'AM';
+elseif birthampm_num == 2
+    birthampm = 'PM';
+birthtime_str = strcat(num2str(birthhour_num), ...
+                   num2str(birthmin_num-1), ...
+                   birthampm);
+currenttime_str = strcat(num2str(newStruct{9}), ...
+                     num2str(newStruct{10}-1), ...
+                     currentampm);
+sex = '?';
+birthdateDN = datenum(birthdate,'mm/dd/yy');
+currentDN = datenum(currentdate,'mm/dd/yy');
+birthhour = newStruct{6};
+currenthour = newStruct{9};
+if strcmp(birthampm,'PM')
+    birthhour = birthhour + 12;
+end
+if strcmp(currentampm,'PM')
+    currenthour = currenthour + 12;
+end
+if birthdateDN > currentDN
+    error(['There was a problem finding the age of the participant. ', ...
+           'They appear to have been born in the future. ', ...
+           '(birthdate = %s, current=%s)'], birthdate, currentdate);
+elseif birthdateDN == currentDN
+    if currenthour < birthhour
+        error(['There was a problem finding the age of the ', ...
+               'participant. They appear to have been born in the ', ...
+               'future. (dates are equal, birthhour = %s, ', ...
+               'current=%s)'], birthtime_str, currenttime_str);
+    end
+end
+hour_diff = currenthour - birthhour;
+diff_date = currentDN - birthdateDN;
+age=strcat(num2str((24 * diff_date + hour_diff)));
+experimentdate = currentdate;
+experimenter_baby = newStruct{2};
+experimenter_computer = newStruct{3};
+place = output{13};
+session = '1'; %???
+condition = output{12};
+outputfile = 
+outputfilesummary = 
+end

@@ -3,26 +3,26 @@ function varargout = getSubjectInfoUI(varargin)
 %      GETSUBJECTINFOUI, by itself, creates a new GETSUBJECTINFOUI or raises the existing
 %      singleton*.
 %
-%      H = GETSUBJECTINFOUI returns the handle to a new GETSUBJECTINFOUI or the handle to
-%      the existing singleton*.
+%      output = getSubjectInfoUI(); sets output to either an empty array in
+%      the case of a form cancellation or closure or a data set
+%      representing the form contents. The dataset is formatted as follows:
 %
-%      GETSUBJECTINFOUI('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in GETSUBJECTINFOUI.M with the given input arguments.
-%
-%      GETSUBJECTINFOUI('Property','Value',...) creates a new GETSUBJECTINFOUI or raises the
-%      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before getSubjectInfoUI_OpeningFcn gets called.  An
-%      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to getSubjectInfoUI_OpeningFcn via varargin.
-%
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
-%
-% See also: GUIDE, GUIDATA, GUIHANDLES
+%       output{1} = Participant ID (string)
+%       output{2} = Researcher Holding Baby (string)
+%       output{3} = Researcher Running Computer (string)
+%       output{4} = Baby's Birth Date/Time (string mm/dd/yy)
+%       output{5} = Current Date/Time (string mm/dd/yy)
+%       output{6} = Baby's Birth Date/Time Hour Index (1=01, ... 12=12)
+%       output{7} = Baby's Birth Date/Time Minute Index (1=00, ..., 60=59)
+%       output{8} = Baby's Birth Date/Time AM/PM Index (1=AM, 2=PM)
+%       output{9} = Current Date/Time Hour Index (1=01, ... 12=12)
+%       output{10} = Current Minute Index (1=00, ..., 60=59)
+%       output{11} = Current AM/PM Index (1=AM, 2=PM)
+%       output{12} = Condition Number (see condition list in UI form)
+%       output{13} = Place Number (see place list in UI form)
+%       output{14} = Gender (1=m, 2=f)
 
-% Edit the above text to modify the response to help getSubjectInfoUI
-
-% Last Modified by GUIDE v2.5 12-Aug-2015 19:08:11
+% Last Modified by GUIDE v2.5 19-Aug-2015 17:43:50
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -52,9 +52,9 @@ function getSubjectInfoUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to getSubjectInfoUI (see VARARGIN)
 currentDateTimeVector = datevec(now);
-currentDateStr = strcat(num2str(currentDateTimeVector(2)),'/', ...
-                        num2str(currentDateTimeVector(3)),'/', ...
-                        num2str(currentDateTimeVector(1)));
+currentDateStr = strcat(num2str(currentDateTimeVector(2), '%02d'),'/', ...
+                        num2str(currentDateTimeVector(3), '%02d'),'/', ...
+                        num2str(currentDateTimeVector(1), '%02d'));
 set(handles.text10, 'String', currentDateStr);
 set(handles.popupmenu4, 'Value', mod(currentDateTimeVector(4),12));
 set(handles.popupmenu5, 'Value', currentDateTimeVector(5)+1);
@@ -76,6 +76,7 @@ function varargout = getSubjectInfoUI_OutputFcn(hObject, eventdata, handles)
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+uicontrol(handles.edit1);
 uiwait(handles.figure1);
 % Get default command line output from handles structure
 out_data = [];
@@ -93,6 +94,7 @@ if ishandle(handles.figure1)
     out_data{11} = get(handles.popupmenu6, 'Value');
     out_data{12} = get(handles.popupmenu7, 'Value');
     out_data{13} = get(handles.popupmenu8, 'Value');
+    out_data{14} = get(handles.popupmenu9, 'Value');
     close(handles.figure1);
 end
 varargout{1} = out_data;
@@ -385,8 +387,8 @@ uiwait(calendarHandle);
 calendarValue = get(handles.text10, 'String');
 if isempty(calendarValue)
     currentDateTimeVector = datevec(now);
-    currentDateStr = strcat(num2str(currentDateTimeVector(2)),'/', ...
-                            num2str(currentDateTimeVector(3)),'/', ...
+    currentDateStr = strcat(num2str(currentDateTimeVector(2)), '/', ...
+                            num2str(currentDateTimeVector(3)), '/', ...
                             num2str(currentDateTimeVector(1)));
     set(handles.text10, 'String', currentDateStr);
 end
@@ -408,3 +410,26 @@ function edit1_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to edit1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on selection change in popupmenu9.
+function popupmenu9_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu9 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu9 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu9
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu9_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu9 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

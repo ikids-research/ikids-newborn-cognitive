@@ -10,7 +10,14 @@ Screen('Preferences','SkipSyncTests',1);
 
 fprintf('Getting subject information... ');
 % Get Start Up Info or recover a subject's info
-subjectInfoStructure = subjectInfo();
+subjectInfoStructure = getSubjectInfoUI();
+if isempty(output)
+    error('Form was cancelled - quitting.');
+end
+[subject, birthdate, birthtime, sex, age, experimentdate, ...
+ experimenter_baby, experimenter_computer, place, session, ...
+ condition, outputfile, outputfilesummary] = ...
+    convertNewSubjectStructToOld(output);
 fprintf('Done.\n');
 
 fprintf('Loading Materials... ');
